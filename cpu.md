@@ -2,8 +2,8 @@
 -----------
 ##  Glossary
 
-Anotation | Description 
------|-----------| 
+Anotation | Description |
+-----|------------------| 
 #A   | progam memory constant
 @a   | indirect addressing from prog mem to ram
 @r   | ram address
@@ -15,7 +15,12 @@ Anotation | Description
 -----------
 
 # INSTRUCTION SET
-RISC???
+
+## REGISTERS
+
+PC
+Z
+RA
 
 ## NOP
     sets all internal signals to 0 and runs for 4 clock cycles
@@ -25,7 +30,7 @@ RISC???
 
 CODE | FUNCTION 
 -----|-----------| 
-0X1  |   PROGMEM[PC] -> Z 
+0X1  |   
    
 ## MOVZ @a,q 
     moves contents from @a to Z if q = 0 otherwise from Z to @a.  
@@ -34,7 +39,12 @@ CODE | FUNCTION
 -----|-----------| 
 0X2  |   @a (q ? <- : ->) Z      
 
+## JMP #A 
+CODE | FUNCTION 
+-----|-----------| 
+0X2  |  #A -> PC      
 
+## 
 ## MOP @T @M 
 -----------
 # CPU SIGNALS
