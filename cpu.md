@@ -2,8 +2,8 @@
 -----------
 ##  Glossary
 
-Anotation | Description |
------|------------------| 
+Anotation | Description 
+-----|-----------| 
 #A   | progam memory constant
 @a   | indirect addressing from prog mem to ram
 @r   | ram address
@@ -15,12 +15,7 @@ Anotation | Description |
 -----------
 
 # INSTRUCTION SET
-
-## REGISTERS
-
-PC
-Z
-RA
+RISC???
 
 ## NOP
     sets all internal signals to 0 and runs for 4 clock cycles
@@ -30,7 +25,7 @@ RA
 
 CODE | FUNCTION 
 -----|-----------| 
-0X1  |   
+0X1  |   PROGMEM[PC] -> Z 
    
 ## MOVZ @a,q 
     moves contents from @a to Z if q = 0 otherwise from Z to @a.  
@@ -39,12 +34,14 @@ CODE | FUNCTION
 -----|-----------| 
 0X2  |   @a (q ? <- : ->) Z      
 
-## JMP #A 
+
+## MOVZ @a,q 
+    moves contents from @a to Z if q = 0 otherwise from Z to @a.  
+
 CODE | FUNCTION 
 -----|-----------| 
-0X2  |  #A -> PC      
+0X2  |   @a (q ? <- : ->) Z   
 
-## 
 ## MOP @T @M 
 -----------
 # CPU SIGNALS
@@ -66,23 +63,29 @@ BUS MUX 0 | BUS MUX 1 | FUNCTION
 1     |     1     |  NOT DEFINED
 
 -----------
+
+# LDZ #A
+
+CODE: 0X01 
+CLOCK CYCLES: 2
+CYCLES      | LDPC | R/W RAM | RAE | Z ENABLE | BUS MUX 0 | BUS MUX 1 | BREAK | 
+------------|------|---------|-----|----------|-----------|-----------|-------|
+C0(PC)      |  0   |    0    |  0  |    1     |      0    |     0     |   0   |   
+C1(PC+1)    |  0   |    0    |  0  |    0     |      0    |     0     |   1   |    
+C2(PC+2)    |  0   |    0    |  0  |    0     |      0    |     0     |   0   |        
+C3(PC+3)    |  0   |    0    |  0  |    0     |      0    |     0     |   0   |
+
 # MOVZ @a
 
 CODE: 0X02 
-CLK CYCLES: 3
-CYCLES| LDPC | R/W RAM | RAE           | Z ENABLE | BUS MUX 0 | BUS MUX 1 | BREAK | 
-------|------|---------|------------------|----------|-----------|-----------|-------|
-C0    |  0   |    0    |        1         |    0     |      0    |     0     |   0   |   
-C1    |  0   |    0    |        0         |    1     |      0    |     0     |   0   |    
-C2    |  0   |    0    |        0         |    0     |      1    |     0     |   0   |        
-C3    |  0   |    0    |        0         |    0     |      0    |     0     |   1   |
+CLOCL CYCLES: 2
+CYCLES      | LDPC | R/W RAM | RAE | Z ENABLE | BUS MUX 0 | BUS MUX 1 | BREAK | 
+------------|------|---------|-----|----------|-----------|-----------|-------|
+C0(PC)      |  0   |    0    |  1  |    1     |      1    |     0     |   0   |   
+C1(PC+1)    |  0   |    0    |  0  |    0     |      0    |     0     |   1   |    
+C2(PC+2)    |  0   |    0    |  0  |    0     |      0    |     0     |   0   |        
+C3(PC+3)    |  0   |    0    |  0  |    0     |      0    |     0     |   0   |
 
-
-MOV @RAM_ADRESS,Z :
-
-MOV Z,@ROM_ADRESS :
-
-MOV @RAM_ADDRESS_A,@RAM_ADDRESS_B
 
 
 -----------
