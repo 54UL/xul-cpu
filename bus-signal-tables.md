@@ -1,6 +1,5 @@
 
-
-# CPU BUS SIGNALS
+# CPU BUS SIGNALS REFERENCE
 
 ### RESET
 ### LDPC
@@ -9,10 +8,7 @@
 ### BUS MUX 1
 ### ALU ENABLE
 ### ADD PC ???
-
-
 ## MUX TABLE
-
 BUS MUX 0 | BUS MUX 1 | FUNCTION
 ----------|-----------|----------|   
 0         |     0     |  PROG MEM DATA -> BUS 
@@ -20,8 +16,9 @@ BUS MUX 0 | BUS MUX 1 | FUNCTION
 1         |     0     |  Z REG DATA -> BUS
 1         |     1     |  NOT DEFINED
 
+# INSTRUCTION DECODE, EXECUTE AND WRITE BACK TABLES
+---------------------------------
 ## LDZ #A
-
 CODE: 0X01 
 CLOCK CYCLES: 2
 CYCLES      | LDPC | R/W RAM | RAE | Z ENABLE | BUS MUX 0 | BUS MUX 1 | BREAK | 
@@ -32,7 +29,6 @@ C2(PC+2)    |  0   |    0    |  0  |    0     |      0    |     0     |   0   |
 C3(PC+3)    |  0   |    0    |  0  |    0     |      0    |     0     |   0   |
 
 ## MOVZ @a
-
 CODE: 0X02 
 CLOCK CYCLES: 2
 CYCLES      | LDPC | R/W RAM | RAE | Z ENABLE | BUS MUX 0 | BUS MUX 1 | BREAK | 

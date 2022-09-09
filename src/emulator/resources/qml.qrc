@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>assembler-qml/App.qml</file>
+        <file>emulator-qml/App.qml</file>
     </qresource>
 </RCC>

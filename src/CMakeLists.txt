@@ -40,9 +40,9 @@ if(${XUL_SUITE_DEBUG})
 endif()
 
 #ASSEMBLER SOURCES and RESOURCES
-file(GLOB_RECURSE XUL_SUITE_SOURCES "assembler/*.cpp")
-file(GLOB_RECURSE XUL_SUITE_HEADERS "assembler/include/*.h")
-set(XUL_SUITE_RESOURCES "assembler/resources/qml.qrc")
+file(GLOB_RECURSE XUL_SUITE_SOURCES "emulator/*.cpp")
+file(GLOB_RECURSE XUL_SUITE_HEADERS "emulator/include/*.h")
+set(XUL_SUITE_RESOURCES "emulator/resources/qml.qrc")
 
 #-------------------------------------------------------------------------------------------------
 # XUL_SUITE APP (CMD, UI) 
