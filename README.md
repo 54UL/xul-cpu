@@ -1,123 +1,52 @@
-# XUL16 CPU ARCH features
+# Minimalist CPU, assembler and emulator for educational approach
 
-* 16 bit program word
+* ISA Like CPU implementation
+* Low level CPU desing (digital logic)
+* RISC Architecture
+* Assembler CLI tool
+* UI Emulator
+
+# XUL Assembly features
+* XU-4
+* XU-8
+* XU-16
+
+# XUL Emulator features
+* All XU instruction sets
+* CHIP-8
+* Z80
+
+# XU Internal architecture specification overview
+
+* One CPU status register (CSTAT reg)
+* 2 internal G.P registers (X & Y registers) and one accumulator (Z register) 
+* 256 x 8 internal non-volatile boot-loader memory
+* 8 bit synchronous half-duplex serial port module
+* Half duplex internal data and addresses buses
+
+## XU4 CPU/MCU Specs
+* 4 bit program word
+* 4 bit ALU (signed integer operations)
+* 8 bit internal bus
+* 16 bit program counter
+* 16 bit external RAM addressing
+* 16 x 8 bit stack pointer  
+
+## XU8 CPU/MCU Specs
+... yeah
+
+## XU16 CPU/MCU Specs
+
+* 16 bit program counter
 * 16 bit internal data bus
 * 16 bit RAM external addressing
-* 16 bit alu (16 bit signed integer operations and binary16(half precision) operations)
-* 8 bit internal volatile bootloader memory
+* 16 bit ALU (16 bit signed integer operations and binary16(half precision) operations)
+* 8 bit internal non-volatile bootloader memory
 * 8 bit stack pointer reg (call stack is stored in external ram) 
 * half duplex data bus (no bus matrix)
-* experimental feature:
-    * serial port with extended instruction set for this
-
-## Example programs
-#### MOV EXAMPLE
-```
-    MOV Z,#16
-TEST:
-    MOV @05,Z
-    MOV Z,#0A
-    MOV @05,Z
-    SRL Z 
-    JMP TEST
-```
-
-#### ALU EXAMPLE
-* EXAMPLE OPERATION: ((A+B) - C) * D
-* A = 266
-* B = 244 
-* C = 256
-* D = 4
-* RESULT = 1016
-
-```
-# ASSEMBLER SYMBOLS
-
-CONST  VAR_A 266
-VAR_16 VAR_B 244
-VAR_16 VAR_C 256
-VAR_16 VAR_D 4
-VAR_8 string_pointer 0x00
-
-DB STRING_RESULT "result was:"
+* synchronous serial port module
 
 
-# CODE
-    MOV Z,#VAR_A   
-    ALUZ ADD @VAR_B
-    ALUZ SUB @VAR_C
-    ALUZ MUL @VAR_D
-```
------------
-
-## Glossary
-
-Anotation | Description 
------|-----------| 
-#A   | progam memory constant
-@a   | indirect addressing from prog mem to ram
-@r   | ram address
-<-   | data direction (rhs to lhs)  
-->   | data direction (lhs to rhs)  
-?    | ternary expression (boolean ? true: false )
-[]   | array
-
-## Instruction set summary
-
-INSTRUCTION | OPERANDS 
-------------|------------| 
-MOV         |
-LDZ         |
-JMP         |
-JMPZZ       |
-JMPNE       |
-CALL        |
-RET         |
-TBIT        |
-SBIT        |
-ALUZ        |
-
-## ALU operations summary
-OPERATION   | OPERANDS 
-------------|------------| 
-ADD         |
-SUB         |
-MUL         |
-NOT         |
-AND         |
-OR          |
-XOR         |
-FADD        |
-FSUB        |
-FMUL        |
-
-# INSTRUCTION SET DESCRIPTION
-
-## NOP
-    sets all internal signals to 0 and runs for 4 clock cycles
-
-## LDZ #A
-    load #A to Z
-
-CODE | FUNCTION 
------|-----------| 
-0X1  |   PROGMEM[PC] -> Z 
-   
-## MOVZ @a,q 
-    moves contents from @a to Z if q = 0 otherwise from Z to @a.  
-
-CODE | FUNCTION 
------|-----------| 
-0X2  |   @a (q ? <- : ->) Z      
-
-## MOVZ @a,q 
-    moves contents from @a to Z if q = 0 otherwise from Z to @a.  
-
-CODE | FUNCTION 
------|-----------| 
-0X2  |   @a (q ? <- : ->) Z   
-
------------
 
 
 

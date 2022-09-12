@@ -16,7 +16,8 @@ BUS MUX 0 | BUS MUX 1 | FUNCTION
 1         |     0     |  Z REG DATA -> BUS
 1         |     1     |  NOT DEFINED
 
-# INSTRUCTION DECODE, EXECUTE AND WRITE BACK TABLES
+# Micro operations tables
+
 ---------------------------------
 ## LDZ #A
 CODE: 0X01 
