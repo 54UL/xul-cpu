@@ -3,13 +3,13 @@
 ## Example programs
 #### MOV EXAMPLE
 ```
-    MOV Z,#16
+    LDZ   #16
 TEST:
-    MOV @05,Z
-    MOV Z,#0A
-    MOV @05,Z
-    SRL Z 
-    JMP TEST
+    MOV   @05,Z
+    LDZ   #0A
+    MOV   @05,Z
+    ALOPZ SR 
+    JMP   TEST
 ```
 
 #### ALU EXAMPLE
@@ -33,11 +33,60 @@ DB STRING_RESULT "result was:"
 
 # CODE
     MOV Z,#VAR_A   
-    ALOP ADD @VAR_B
-    ALOP SUB @VAR_C
-    ALOP MUL @VAR_D
+    ALOPZ ADD @VAR_B
+    ALOPZ ADD @VAR_C #twos complement...
+    ALOPZ MUL @VAR_D
 ```
+## Memory types
+* word value : word sized value, example (0xf if word = 4 bits)
+* word address : word sized address, example (0xFFFF if addr word = 16 bits)
+* bit: bit position from 0 to word max bits count
 
+## Addresing modes
+* Indirect mode through any ram location (@)
+
+## Instruction set 
+
+INSTRUCTION | OPERANDS                |  TOTAL SIZE (words)  
+------------|-------------------------|------------------
+MOV         | address, adresss        |      3  
+LDZ         | Z, word value           |      2 
+JMP         | word address            |      2
+CALL        | word address            |      2
+RET         |                         |      1
+BIZ         | word address            |      2
+SIC         | Z, bit                  |      2
+SIS         | Z, bit                  |      2
+ALOP        | Z, operation, address   |      3           
+
+## ALU operations summary
+OPERATION   | OPERANDS 
+------------|------------| 
+ADD         | Z, @r
+MUL         | Z, @r
+NOT         | Z
+AND         | Z, @r
+OR          | Z, @r
+SR          | Z, @r
+SL          | Z, @r
+
+# INSTRUCTION SET DESCRIPTION
+
+## NOP
+    sets all internal signals to 0 and runs for 4 clock cycles
+
+## LDZ #A
+    load #A to Z
+
+CODE | FUNCTION 
+-----|-----------| 
+0X1  |   PROGMEM[PC] -> Z 
+
+
+
+
+
+-----------
 # Assembler Directives
 
 DIRECTIVE  | DESCRIPTION
@@ -58,59 +107,3 @@ ENDM       | Ends macro definition.
 INCLUDE    | Textually includes the content of the specified file.
 MACRO      | Macro definition
 ORG        | Sets location counter within current psect
-
-## Instruction set summary
-
-INSTRUCTION | OPERANDS 
-------------|------------| 
-MOV         |
-LDZ         |
-JMP         |
-JMPZZ       |
-JMPNE       |
-CALL        |
-RET         |
-TBIT        |
-SBIT        |
-ALOP        |
-
-## ALU operations summary
-OPERATION   | OPERANDS 
-------------|------------| 
-ADD         |
-SUB         |
-MUL         |
-NOT         |
-AND         |
-OR          |
-XOR         |
-SFTL        | 
-SFTR        |
-
-# INSTRUCTION SET DESCRIPTION
-
-## NOP
-    sets all internal signals to 0 and runs for 4 clock cycles
-
-## LDZ #A
-    load #A to Z
-
-CODE | FUNCTION 
------|-----------| 
-0X1  |   PROGMEM[PC] -> Z 
-   
-## MOVZ @a,q 
-    moves contents from @a to Z if q = 0 otherwise from Z to @a.  
-
-CODE | FUNCTION 
------|-----------| 
-0X2  |   @a (q ? <- : ->) Z      
-
-## MOVZ @a,q 
-    moves contents from @a to Z if q = 0 otherwise from Z to @a.  
-
-CODE | FUNCTION 
------|-----------| 
-0X2  |   @a (q ? <- : ->) Z   
-
------------
